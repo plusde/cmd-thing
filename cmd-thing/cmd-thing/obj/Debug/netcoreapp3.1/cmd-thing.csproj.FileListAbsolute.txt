@@ -1,0 +1,13 @@
+H:\git\cmd-thing\cmd-thing\cmd-thing\bin\Debug\netcoreapp3.1\cmd-thing.exe
+H:\git\cmd-thing\cmd-thing\cmd-thing\bin\Debug\netcoreapp3.1\cmd-thing.deps.json
+H:\git\cmd-thing\cmd-thing\cmd-thing\bin\Debug\netcoreapp3.1\cmd-thing.runtimeconfig.json
+H:\git\cmd-thing\cmd-thing\cmd-thing\bin\Debug\netcoreapp3.1\cmd-thing.runtimeconfig.dev.json
+H:\git\cmd-thing\cmd-thing\cmd-thing\bin\Debug\netcoreapp3.1\cmd-thing.dll
+H:\git\cmd-thing\cmd-thing\cmd-thing\bin\Debug\netcoreapp3.1\cmd-thing.pdb
+H:\git\cmd-thing\cmd-thing\cmd-thing\obj\Debug\netcoreapp3.1\cmd-thing.csprojAssemblyReference.cache
+H:\git\cmd-thing\cmd-thing\cmd-thing\obj\Debug\netcoreapp3.1\cmd-thing.AssemblyInfoInputs.cache
+H:\git\cmd-thing\cmd-thing\cmd-thing\obj\Debug\netcoreapp3.1\cmd-thing.AssemblyInfo.cs
+H:\git\cmd-thing\cmd-thing\cmd-thing\obj\Debug\netcoreapp3.1\cmd-thing.csproj.CoreCompileInputs.cache
+H:\git\cmd-thing\cmd-thing\cmd-thing\obj\Debug\netcoreapp3.1\cmd-thing.dll
+H:\git\cmd-thing\cmd-thing\cmd-thing\obj\Debug\netcoreapp3.1\cmd-thing.pdb
+H:\git\cmd-thing\cmd-thing\cmd-thing\obj\Debug\netcoreapp3.1\cmd-thing.genruntimeconfig.cache
