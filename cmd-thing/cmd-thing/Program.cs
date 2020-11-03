@@ -32,6 +32,20 @@ namespace cmd_thing {
             Console.Clear();
             cw(i.DrawField());
 
+            // read new inputs
+            Console.ForegroundColor = ConsoleColor.Gray;
+            cw("\nChar X: ");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            input1 = Console.ReadLine();
+            Console.ForegroundColor = ConsoleColor.Gray;
+            cw("Char Y: ");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            input2 = Console.ReadLine();
+
+            // display new ass
+            Console.Clear();
+            cw(i.DrawField(input1, input2));
+
             // stop
             Console.ReadKey();
         }

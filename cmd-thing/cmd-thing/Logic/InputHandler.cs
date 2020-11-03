@@ -30,5 +30,17 @@ namespace cmd_thing.Logic {
             g.Field.Inside = String.Empty;
             return g.Field.Inside;
         }
+        // return field with character
+        public String DrawField(String s1, String s2) {
+            int[] i = new int[2];
+            if (int.TryParse(s1, out int i1))
+                if (int.TryParse(s2, out int i2))
+                    g.Character/*.Coods */= new /*Utility.Coods*/Character(i1, i2); // character is never made so I need to make it now, but if I'd use this function every frame in the future it's better to not keep making new characters
+            return g.drawChar();
+        }
+        // this should be the game
+        public void Run() {
+
+        }
     }
 }

@@ -13,27 +13,17 @@ namespace cmd_thing.Objects {
                 inside = String.Empty;
                 for (int i = 0; i < Height; i++) {
                     for (int j = 0; j < Width; j++) {
-                        Random r = new Random();
-                        switch (r.Next(15)) {
-                            case 1:
-                            case 2:
-                            case 3:
-                            case 4:
-                            case 5:
-                            case 7:
-                            case 8:
-                            case 9:
-                            case 10:
-                            case 11:
-                            case 12:
-                                inside += " ";
-                                break;
+                        switch (new Random().Next(15)) {
                             case 13:
                                 inside += ",";
                                 break;
                             case 14:
                                 inside += ".";
                                 break;
+                            default:
+                                inside += " ";
+                                break;
+
                         }
                     }
                     if(i!=Height-1)

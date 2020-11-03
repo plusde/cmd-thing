@@ -5,10 +5,10 @@ using System.Text;
 
 namespace cmd_thing.Objects {
     class Character {
-        private Coods coods;
+        public Coods Coods { get; set; }
 
         public Character(int x, int y) {
-            coods = new Coods(x, y);
+            Coods = new Coods(x, y);
         }
     }
 }
