@@ -44,7 +44,16 @@ namespace cmd_thing {
 
             // display new ass
             Console.Clear();
-            cw(i.DrawField(input1, input2));
+            foreach (char c in i.DrawField(input1, input2)) {
+                if (c == '#') {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    cw(c + "");
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                }
+                else
+                    cw(c + "");
+            }
+
 
             // stop
             Console.ReadKey();
