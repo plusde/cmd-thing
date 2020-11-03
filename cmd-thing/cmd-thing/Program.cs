@@ -5,6 +5,7 @@ namespace cmd_thing {
     class Program {
         static void Main(string[] args) {
             InputHandler i = new InputHandler();
+            const int ConsoleHeight = 30;
 
             // I'm lazy
             Action<String> cw = Console.Write;
@@ -17,7 +18,8 @@ namespace cmd_thing {
             Console.ForegroundColor = ConsoleColor.Gray;
             cw("Height: ");
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            String input1 = Console.ReadLine();
+            cw(ConsoleHeight+"\n");
+            String input1 = ConsoleHeight+"";
             Console.ForegroundColor = ConsoleColor.Gray;
             cw("Width: ");
             Console.ForegroundColor = ConsoleColor.DarkGray;
