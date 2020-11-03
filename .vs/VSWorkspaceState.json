@@ -1,6 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\cmd-thing"
   ],
+  "SelectedNode": "\\cmd-thing\\cmd-thing.sln",
   "PreviewInSolutionExplorer": false
 }
