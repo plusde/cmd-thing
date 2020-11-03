@@ -5,42 +5,45 @@ using System.Text;
 namespace cmd_thing.Objects {
     class Field {
         private String inside;
-        public int Width { get; }
         public int Height { get; }
+        public int Width { get; }
         public String Inside { 
             get { return inside; }
             set {
                 inside = String.Empty;
-                for (int i = 0; i < Width; i++) {
-                    for (int j = 0; j < Height; j++) {
+                for (int i = 0; i < Height; i++) {
+                    for (int j = 0; j < Width; j++) {
                         Random r = new Random();
-                        switch (r.Next(10)) {
+                        switch (r.Next(15)) {
                             case 1:
                             case 2:
                             case 3:
                             case 4:
                             case 5:
                             case 7:
+                            case 8:
+                            case 9:
+                            case 10:
+                            case 11:
+                            case 12:
                                 inside += " ";
                                 break;
-                            case 8:
+                            case 13:
                                 inside += ",";
                                 break;
-                            case 9:
+                            case 14:
                                 inside += ".";
-                                break;
-                            case 10:
-                                inside += ":";
                                 break;
                         }
                     }
-                    inside += "\n";
+                    if(i!=Height-1)
+                        inside += "\n";
                 }
             }
         }
         public Field (int[] i) {
-            Width = i[0];
-            Height = i[1];
+            Height = i[0];
+            Width = i[1];
         }
     }
 }

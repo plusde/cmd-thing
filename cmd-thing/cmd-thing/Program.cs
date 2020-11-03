@@ -27,7 +27,8 @@ namespace cmd_thing {
             i.SetFielDimensions(input1, input2);
 
             // display ass
-            cwl(i.DrawField());
+            Console.Clear();
+            cw(i.DrawField());
 
             // stop
             Console.ReadKey();

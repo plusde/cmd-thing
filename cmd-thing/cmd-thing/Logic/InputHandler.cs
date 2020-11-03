@@ -12,6 +12,8 @@ namespace cmd_thing.Logic {
             g = new Game();
         }
 
+        /* actual input handling */
+
         // set field up
         public void SetFielDimensions(String s1, String s2) {
             int[] i = new int[2];
@@ -20,6 +22,8 @@ namespace cmd_thing.Logic {
                     i = new int[] { i1, i2 };
             g.Field = new Field(i);
         }
+
+        /* returning stuff because idk how to do it without using this class */
 
         // return the field
         public String DrawField() {
