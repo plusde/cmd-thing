@@ -17,17 +17,29 @@ namespace cmd_thing.Objects {
                     if (rinside == String.Empty) {
                         for (int i = 0; i < Height; i++) {
                             for (int j = 0; j < Width; j++) {
-                                switch (new Random().Next(15)) {
-                                    case 13:
+                                switch (new Random().Next(100)) {
+                                    case 87:
+                                        rinside += "O";
+                                        break;
+                                    case 88:
+                                    case 89:
+                                    case 90:
+                                    case 91:
+                                    case 92:
+                                    case 93:
                                         rinside += ",";
                                         break;
-                                    case 14:
+                                    case 94:
+                                    case 95:
+                                    case 96:
+                                    case 97:
+                                    case 98:
+                                    case 99:
                                         rinside += ".";
                                         break;
                                     default:
                                         rinside += " ";
                                         break;
-
                                 }
                             }
                             if (i != Height - 1)

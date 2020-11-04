@@ -52,6 +52,7 @@ namespace cmd_thing.Logic {
             if (int.TryParse(s1, out int i1))
                 if (int.TryParse(s2, out int i2))
                     g.Character/*.Coods */= new /*Utility.Coods*/Character(i1, i2); // character is never made so I need to make it now, but if I'd use this function every frame in the future it's better to not keep making new characters
+                                                                                    // I'm using the other function now so no need to change this.
             return g.DrawChar();
         }
         // this should be the game
@@ -66,11 +67,16 @@ namespace cmd_thing.Logic {
                 if(ck.Key == ConsoleKey.Escape)
                     return true;
 
-                // do stuff
+                // move
                 if (ck.Key == ConsoleKey.UpArrow || ck.Key == ConsoleKey.DownArrow || ck.Key == ConsoleKey.LeftArrow || ck.Key == ConsoleKey.RightArrow) {
                     g.MoveChar(ck.Key);
                     g.DrawChar();
                     recievedInput = true;
+                }
+                // interact
+                if(ck.Key == ConsoleKey.E) {
+                    // break crate
+                    g.Interaction();
                 }
             }
             return false;
