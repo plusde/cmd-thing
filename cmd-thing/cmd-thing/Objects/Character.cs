@@ -7,7 +7,12 @@ namespace cmd_thing.Objects {
     class Character {
         public Coods Coods { get; set; }
         private String inventoryString;
+        private int uniqueItemCount;
         private readonly Dictionary<Item, int> inventory;
+        public int UniqueItemCount {
+            get { return uniqueItemCount; }
+            set { uniqueItemCount = inventory.Count; }
+        }
         public String Inventory {
             get {
                 return inventoryString;
@@ -68,6 +73,22 @@ namespace cmd_thing.Objects {
                 inventory[i]++;
             else
                 inventory.Add(i, 1);
+        }
+        public void Drop(int i) {
+            int ctr = 0;
+            Item key = Item.Sword; // placeholder
+            bool found = false;
+            foreach (KeyValuePair<Item, int> k in inventory) {
+                if (i == ctr++) {
+                    key = k.Key;
+                    found = true;
+                }
+            }
+            if (found) {
+                inventory[key]--;
+                if (inventory[key] == 0)
+                    inventory.Remove(key);
+            }
         }
     }
 }

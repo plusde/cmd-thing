@@ -7,6 +7,7 @@ using System.Text;
 namespace cmd_thing.Logic {
     class InputHandler {
         readonly Game g;
+        private UI ui;
         private bool recievedInput;
         private bool gameRunning;
 
@@ -62,6 +63,11 @@ namespace cmd_thing.Logic {
             g.Character.Inventory = String.Empty;
             return g.Character.Inventory;
         }
+        // output which inventory button is selected
+        public int SelectedInvButton() {
+            return ui.selectedButton;
+        }
+
         // this should be the game
         public bool Run() {
             gameRunning = true;
@@ -91,8 +97,34 @@ namespace cmd_thing.Logic {
                     if (ck.Key == ConsoleKey.I) {
                         DisplayInventory = true;
                         recievedInput = true;
+                        ui = new UI(2, g.Character.UniqueItemCount);
                     }
                 } else {
+                    // select ass
+                    if (ck.Key == ConsoleKey.UpArrow || ck.Key == ConsoleKey.DownArrow || ck.Key == ConsoleKey.LeftArrow || ck.Key == ConsoleKey.RightArrow) {
+                        switch (ck.Key) {
+                            case ConsoleKey.UpArrow:
+                                ui.selectedButton-=2;
+                                break;
+                            case ConsoleKey.DownArrow:
+                                ui.selectedButton+=2;
+                                break;
+                            case ConsoleKey.LeftArrow:
+                                ui.selectedButton--;
+                                break;
+                            case ConsoleKey.RightArrow:
+                                ui.selectedButton++;
+                                break;
+                        }
+                        recievedInput = true;
+                    }
+                    // do action on selected ass
+                    if (ck.Key == ConsoleKey.Enter) {
+                        if(ui.selectedButton % 2 == 1) {
+                            g.Character.Drop(ui.selectedButton % 2 - 1);
+                        }
+                        recievedInput = true;
+                    }
                     // close inventory
                     if (ck.Key == ConsoleKey.I) {
                         DisplayInventory = false;

@@ -65,10 +65,23 @@ namespace cmd_thing {
                 if (i.RecievedInput) {
                     Console.Clear();
                     if (i.DisplayInventory) {
+                        int ctr = 0;
                         foreach (char c in i.DrawInventory()) {
                             if (c == '|' || c == '-') {
                                 Console.ForegroundColor = ConsoleColor.DarkGray;
                                 cw(c + "");
+                                Console.ForegroundColor = ConsoleColor.Gray;
+                            } else if (c == '[') {
+                                if(++ctr == i.SelectedInvButton()) {
+                                    Console.BackgroundColor = ConsoleColor.Gray;
+                                    Console.ForegroundColor = ConsoleColor.Black;
+                                }
+                                cw(c + "");
+                            } else if (ctr == i.SelectedInvButton() && c == ']') {
+                                Console.BackgroundColor = ConsoleColor.Gray;
+                                Console.ForegroundColor = ConsoleColor.Black;
+                                cw(c + "");
+                                Console.BackgroundColor = ConsoleColor.Black;
                                 Console.ForegroundColor = ConsoleColor.Gray;
                             } else
                                 cw(c + "");
