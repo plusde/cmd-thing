@@ -8,7 +8,7 @@ namespace cmd_thing.Logic {
         public Field Field { get; set; }
         public Character Character { get; set; }
 
-        public String drawChar() {
+        public String DrawChar() {
             String output = String.Empty;
             int ctrh = 0;
             int ctrw = 0;
@@ -24,6 +24,23 @@ namespace cmd_thing.Logic {
                     output += c;
             }
             return output;
+        }
+
+        public void MoveChar(ConsoleKey ck) {
+            switch (ck) {
+                case ConsoleKey.UpArrow:
+                    Character.Coods = new Character(Character.Coods.X, Character.Coods.Y - 1).Coods;
+                    break;
+                case ConsoleKey.DownArrow:
+                    Character.Coods = new Character(Character.Coods.X, Character.Coods.Y + 1).Coods;
+                    break;
+                case ConsoleKey.LeftArrow:
+                    Character.Coods = new Character(Character.Coods.X - 1, Character.Coods.Y).Coods;
+                    break;
+                case ConsoleKey.RightArrow:
+                    Character.Coods = new Character(Character.Coods.X + 1, Character.Coods.Y).Coods;
+                    break;
+            }
         }
     }
 }

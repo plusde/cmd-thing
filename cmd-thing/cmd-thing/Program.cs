@@ -57,8 +57,21 @@ namespace cmd_thing {
 
         // input reading
         Game:
-            if(!i.Run())
+            if (!i.Run()) {
+                // update the ass
+                if (i.RecievedInput) {
+                    Console.Clear();
+                    foreach (char c in i.DrawField()) {
+                        if (c == '#') {
+                            Console.ForegroundColor = ConsoleColor.White;
+                            cw(c + "");
+                            Console.ForegroundColor = ConsoleColor.DarkGray;
+                        } else
+                            cw(c + "");
+                    }
+                }
                 goto Game;
+            }
         }
     }
 }
