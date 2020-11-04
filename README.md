@@ -1,2 +1,5 @@
 # cmd-thing
-Dunno what to put here yet.
+
+I'm ripping off something tnk-rin is working on atm.
+
+idk what else to do with this yet.
