@@ -9,9 +9,36 @@ namespace cmd_thing.Objects {
         private String inventoryString;
         private int uniqueItemCount;
         private readonly Dictionary<Item, int> inventory;
+
+        public int MaxHealth { get; set; }
+        public int Health { 
+            get { return health; }
+            set {
+                health += value;
+                if (health > MaxHealth)
+                    health = MaxHealth;
+            }
+        }
+        private int health;
+        public int Armor { get; set; }
+
         public int UniqueItemCount {
             get { return uniqueItemCount; }
             set { uniqueItemCount = inventory.Count; }
+        }
+        public String CharacterStats {
+            get {
+                String output = String.Empty;
+
+                output += " Health: ";
+                for (int i = 0; i < MaxHealth; i++)
+                    output += "* ";
+                output += "\t Armor: ";
+                for (int i = 0; i < Armor; i++)
+                    output += "* ";
+
+                return output += "\n";
+            }
         }
         public String Inventory {
             get {
@@ -66,8 +93,11 @@ namespace cmd_thing.Objects {
         public Character(int x, int y) {
             Coods = new Coods(x, y);
             inventory = new Dictionary<Item, int>();
+            Health = 20;
+            MaxHealth = 20;
         }
 
+        // item actions
         public void PickUp(Item i) {
             if (inventory.ContainsKey(i))
                 inventory[i]++;
@@ -89,6 +119,31 @@ namespace cmd_thing.Objects {
                 if (inventory[key] == 0)
                     inventory.Remove(key);
             }
+        }
+        public void Use(int i) {
+            int ctr = 0;
+            Item item = Item.Sword; // placeholder
+            bool found = false;
+            foreach (KeyValuePair<Item, int> k in inventory) {
+                if (i == ctr++) {
+                    item = k.Key;
+                    found = true;
+                }
+            }
+            if (found) {
+                switch (item) {
+                    case Item.Armor:
+                        Armor = 10;
+                        inventory[item]--;
+                        break;
+                    case Item.HealthPotion:
+                        Health += 5;
+                        inventory[item]--;
+                        break;
+                }
+            }
+            if (inventory[item] == 0)
+                inventory.Remove(item);
         }
     }
 }

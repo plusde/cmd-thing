@@ -6,7 +6,7 @@ namespace cmd_thing {
     class Program {
         static void Main(string[] args) {
             InputHandler i = new InputHandler();
-            const int ConsoleHeight = 30;
+            const int ConsoleHeight = 29;
             const int ConsoleWidth = 100;
 
             // I'm lazy

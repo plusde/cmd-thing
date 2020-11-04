@@ -44,7 +44,7 @@ namespace cmd_thing.Logic {
         // return the field
         public String DrawField() {
             if (gameRunning)
-                return g.DrawChar();
+                return g.Character.CharacterStats + g.DrawChar();
             else {
                 g.Field.Inside = String.Empty;
                 return g.Field.Inside;
@@ -61,7 +61,7 @@ namespace cmd_thing.Logic {
         // draw inventory
         public String DrawInventory() {
             g.Character.Inventory = String.Empty;
-            return g.Character.Inventory;
+            return g.Character.CharacterStats + g.Character.Inventory;
         }
         // output which inventory button is selected
         public int SelectedInvButton() {
@@ -122,6 +122,8 @@ namespace cmd_thing.Logic {
                     if (ck.Key == ConsoleKey.Enter) {
                         if(ui.selectedButton % 2 == 1) {
                             g.Character.Drop(ui.selectedButton % 2 - 1);
+                        } else {
+                            g.Character.Use(ui.selectedButton % 2);
                         }
                         recievedInput = true;
                     }
