@@ -7,6 +7,7 @@ namespace cmd_thing {
         static void Main(string[] args) {
             InputHandler i = new InputHandler();
             const int ConsoleHeight = 30;
+            const int ConsoleWidth = 100;
 
             // I'm lazy
             Action<String> cw = Console.Write;
@@ -15,16 +16,18 @@ namespace cmd_thing {
             // say some ass
             cwl("Welcome to cmd-thing.\n");
 
-            // read inputs
+            // read inputs (not anymore I locked them)
             Console.ForegroundColor = ConsoleColor.Gray;
             cw("Height: ");
             Console.ForegroundColor = ConsoleColor.DarkGray;
             cw(ConsoleHeight+"\n");
-            String input1 = ConsoleHeight+"";
+            String input1 = ConsoleHeight + "";
             Console.ForegroundColor = ConsoleColor.Gray;
             cw("Width: ");
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            String input2 = Console.ReadLine();
+            cw(ConsoleWidth+"");
+            String input2 = ConsoleWidth + "";
+            Console.ReadKey();
 
             // send to inputhandler
             i.SetFielDimensions(input1, input2);
@@ -61,13 +64,24 @@ namespace cmd_thing {
                 // update the ass
                 if (i.RecievedInput) {
                     Console.Clear();
-                    foreach (char c in i.DrawField()) {
-                        if (c == '#') {
-                            Console.ForegroundColor = ConsoleColor.White;
-                            cw(c + "");
-                            Console.ForegroundColor = ConsoleColor.DarkGray;
-                        } else
-                            cw(c + "");
+                    if (i.DisplayInventory) {
+                        foreach (char c in i.DrawInventory()) {
+                            if (c == '|' || c == '-') {
+                                Console.ForegroundColor = ConsoleColor.DarkGray;
+                                cw(c + "");
+                                Console.ForegroundColor = ConsoleColor.Gray;
+                            } else
+                                cw(c + "");
+                        }
+                    } else {
+                        foreach (char c in i.DrawField()) {
+                            if (c == '#') {
+                                Console.ForegroundColor = ConsoleColor.White;
+                                cw(c + "");
+                                Console.ForegroundColor = ConsoleColor.DarkGray;
+                            } else
+                                cw(c + "");
+                        }
                     }
                 }
                 goto Game;

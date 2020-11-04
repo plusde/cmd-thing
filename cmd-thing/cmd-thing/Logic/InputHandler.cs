@@ -19,10 +19,12 @@ namespace cmd_thing.Logic {
             }
             set { recievedInput = value; }
         }
+        public bool DisplayInventory { get; set; }
 
         // create game
         public InputHandler() {
             g = new Game();
+            DisplayInventory = false;
         }
 
         /* actual input handling */
@@ -55,6 +57,11 @@ namespace cmd_thing.Logic {
                                                                                     // I'm using the other function now so no need to change this.
             return g.DrawChar();
         }
+        // draw inventory
+        public String DrawInventory() {
+            g.Character.Inventory = String.Empty;
+            return g.Character.Inventory;
+        }
         // this should be the game
         public bool Run() {
             gameRunning = true;
@@ -66,17 +73,31 @@ namespace cmd_thing.Logic {
                 // exit the loop
                 if(ck.Key == ConsoleKey.Escape)
                     return true;
-
-                // move
-                if (ck.Key == ConsoleKey.UpArrow || ck.Key == ConsoleKey.DownArrow || ck.Key == ConsoleKey.LeftArrow || ck.Key == ConsoleKey.RightArrow) {
-                    g.MoveChar(ck.Key);
-                    g.DrawChar();
-                    recievedInput = true;
-                }
-                // interact
-                if(ck.Key == ConsoleKey.E) {
-                    // break crate
-                    g.Interaction();
+                if (!DisplayInventory) {
+                    // move
+                    if (ck.Key == ConsoleKey.UpArrow || ck.Key == ConsoleKey.DownArrow || ck.Key == ConsoleKey.LeftArrow || ck.Key == ConsoleKey.RightArrow) {
+                        g.MoveChar(ck.Key);
+                        g.DrawChar();
+                        recievedInput = true;
+                    }
+                    // interact
+                    if (ck.Key == ConsoleKey.E) {
+                        // break crate
+                        g.Interaction();
+                        g.DrawChar();
+                        recievedInput = true;
+                    }
+                    // open inventory
+                    if (ck.Key == ConsoleKey.I) {
+                        DisplayInventory = true;
+                        recievedInput = true;
+                    }
+                } else {
+                    // close inventory
+                    if (ck.Key == ConsoleKey.I) {
+                        DisplayInventory = false;
+                        recievedInput = true;
+                    }
                 }
             }
             return false;

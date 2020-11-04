@@ -8,10 +8,10 @@ namespace cmd_thing.Logic {
         static public void GiveRandomItem(this Character c) {
             switch (new Random().Next(3)) {
                 case 0:
-                    c.PickUp(Utility.Item.Armor);
+                    c.PickUp(Utility.Item.Sword);
                     break;
                 case 1:
-                    c.PickUp(Utility.Item.Armor);
+                    c.PickUp(Utility.Item.HealthPotion);
                     break;
                 case 2:
                     c.PickUp(Utility.Item.Armor);
