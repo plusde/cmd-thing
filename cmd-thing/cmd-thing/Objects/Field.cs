@@ -33,8 +33,8 @@ namespace cmd_thing.Objects {
                             if (i != Height - 1)
                                 rinside += "\n";
                         }
-                    } else
-                        inside = rinside;
+                    }
+                    inside = rinside;
                 }
             }
         }

@@ -1,5 +1,6 @@
 ﻿using cmd_thing.Logic;
 using System;
+using System.Timers;
 
 namespace cmd_thing {
     class Program {
@@ -54,9 +55,10 @@ namespace cmd_thing {
                     cw(c + "");
             }
 
-
-            // stop
-            Console.ReadKey();
+        // input reading
+        Game:
+            if(!i.Run())
+                goto Game;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using cmd_thing.Objects;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace cmd_thing.Logic {
@@ -39,8 +40,18 @@ namespace cmd_thing.Logic {
             return g.drawChar();
         }
         // this should be the game
-        public void Run() {
+        public bool Run() {
+            ConsoleKeyInfo ck;
+            if (Console.KeyAvailable) {
+                ck = Console.ReadKey(true);
 
+                // exit the loop
+                if(ck.Key == ConsoleKey.Escape)
+                    return true;
+
+                // do stuff
+            }
+            return false;
         }
     }
 }
