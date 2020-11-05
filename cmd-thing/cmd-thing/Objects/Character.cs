@@ -110,50 +110,28 @@ namespace cmd_thing.Objects {
             else
                 inventory.Add(i, 1);
         }
-        public void Drop(int i) {
-            int ctr = 0;
-            Item key = Item.Sword; // placeholder
-            bool found = false;
-            foreach (KeyValuePair<Item, int> k in inventory) {
-                if (i == ctr++) {
-                    key = k.Key;
-                    found = true;
-                }
-            }
-            if (found) {
-                inventory[key]--;
-                if (inventory[key] == 0)
-                    inventory.Remove(key);
-            }
+        public void Drop(Item i) {
+            inventory[i]--;
+            if (inventory[i] == 0)
+                inventory.Remove(i);
         }
-        public void Use(int i) {
-            int ctr = 0;
-            Item item = Item.Sword; // placeholder
-            bool found = false;
-            foreach (KeyValuePair<Item, int> k in inventory) {
-                if (i == ctr++) {
-                    item = k.Key;
-                    found = true;
-                }
+        public void Use(Item i) {
+            switch (i) {
+                case Item.Armor:
+                    Armor = i.ReturnStatistics()[Property.ArmDisplay];
+                    inventory[i]--;
+                    break;
+                case Item.HealthPotion:
+                    switch (i.ReturnStatistics()[Property.PotEffect]) {
+                        case 0:
+                            Health += i.ReturnStatistics()[Property.PotBonus] / 5;
+                            break;
+                    }
+                    inventory[i]--;
+                    break;
             }
-            if (found) {
-                switch (item) {
-                    case Item.Armor:
-                        Armor = item.ReturnStatistics()[Property.ArmDisplay];
-                        inventory[item]--;
-                        break;
-                    case Item.HealthPotion:
-                        switch (item.ReturnStatistics()[Property.PotEffect]) {
-                            case 0:
-                                Health += item.ReturnStatistics()[Property.PotBonus] / 5;
-                                break;
-                        }
-                        inventory[item]--;
-                        break;
-                }
-            }
-            if (inventory[item] == 0)
-                inventory.Remove(item);
+            if (inventory[i] == 0)
+                inventory.Remove(i);
         }
     }
 }

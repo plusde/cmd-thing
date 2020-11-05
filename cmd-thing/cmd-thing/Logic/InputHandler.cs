@@ -1,4 +1,5 @@
 ﻿using cmd_thing.Objects;
+using cmd_thing.Utility;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -196,12 +197,38 @@ namespace cmd_thing.Logic {
                     }
                     // do action on selected ass
                     if (ck.Key == ConsoleKey.Enter) {
-                        if(inventory.SelectedButton % 2 == 1)
-                            g.Character.Drop(inventory.SelectedButton % 2 - 1);
-                        else
-                            g.Character.Use(inventory.SelectedButton % 2);
+                        // get selected item as an item
+                        int i = 0;
+                        int j = 0;
+                        bool skip = true;
+                        bool read = false;
+                        String item = String.Empty;
+                        g.Character.UniqueItemCount = 0;
+                        Item[] arr = new Item[g.Character.UniqueItemCount];
+                        foreach (char c in DrawInventory()) {
+                            if (c == '\n')
+                                i++;
+                            if (i == 3 && skip) {
+                                i = 0; skip = false;
+                            }
+                            if (c == 'x' && !read) {
+                                read = true;
+                                item = String.Empty;
+                            }
+                            if (c == '\t' && read) {
+                                read = false;
+                                arr[j++] = (Item) Enum.Parse(typeof(Item), item.Trim(new char[] { ' ', 'x', ':' }));
+                            }
+                            if (read)
+                                item += c;
+                        }
+                        // do ass with it
+                        if (inventory.SelectedButton % 2 == 1) {
+                            g.Character.Drop(arr[inventory.SelectedButton%(g.Character.UniqueItemCount)]);
+                        } else {
+                            g.Character.Use(arr[inventory.SelectedButton % (g.Character.UniqueItemCount)]);
+                        }
                         recievedInput = true;
-                        inventory = new UI(2, g.Character.UniqueItemCount);
                     }
                     // close inventory
                     if (ck.Key == ConsoleKey.I) {

@@ -9,8 +9,8 @@ namespace cmd_thing {
             const int ConsoleHeight = 29;
             const int ConsoleWidth = 100;
 
-            bool drawingHealth = true;
-            bool drawingArmor = false;
+            bool drawingHealth;
+            bool drawingArmor;
 
             // I'm lazy
             Action<String> cw = Console.Write;
@@ -31,8 +31,8 @@ namespace cmd_thing {
             /*cw(*/i.DrawField()/*)*/; // don't output anymore, just create the field
 
             // read new inputs (skip we have a menu now)
-            input1 = $"{ConsoleHeight / 2}";
-            input2 = $"{ConsoleWidth / 2}";
+            input1 = $"{ConsoleWidth / 2}";
+            input2 = $"{ConsoleHeight / 2}";
             i.DrawField(input1, input2); // put char in created field
 
             var aziBabo = true;
@@ -126,8 +126,10 @@ namespace cmd_thing {
             if (!i.Menu()) {
                 // update this ass too
                 if (i.RecievedInput || aziBabo) {
-                    aziBabo = false;
-                    Console.Clear();
+                    if(aziBabo == true)
+                        aziBabo = false;
+                    else // fsr console still gets cleared.
+                        Console.Clear();
                     int bracketCtr = 0;
                     foreach (char c in i.DrawMenu()) {
                         if (c == '[') {
