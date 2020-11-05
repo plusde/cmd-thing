@@ -71,7 +71,7 @@ namespace cmd_thing.Objects {
                     entries[ctr++] = $"| {i.Value} x {i.Key}:";      // first add everything
                 int longest = 0;
                 foreach (String s in entries)
-                    if (s.Length >= longest)
+                    if (s.Length > longest)
                         longest = s.Length;                          // check what's longest
                 for (int i = 0; i < entries.Length; i++) {
                     int entryLength = entries[i].Length;

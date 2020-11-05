@@ -208,15 +208,17 @@ namespace cmd_thing.Logic {
                         foreach (char c in DrawInventory()) {
                             if (c == '\n')
                                 i++;
-                            if (i == 3 && skip) {
-                                i = 0; skip = false;
-                            }
+                            if (i == 3 && skip)
+                                // first 3 lines don't matter
+                                skip = false;
                             if (c == 'x' && !read) {
+                                // enums get put after the x
                                 read = true;
                                 item = String.Empty;
                             }
                             if (c == '\t' && read) {
                                 read = false;
+                                // remove the chars that aren't the enum and parse it to the enums
                                 arr[j++] = (Item) Enum.Parse(typeof(Item), item.Trim(new char[] { ' ', 'x', ':' }));
                             }
                             if (read)
