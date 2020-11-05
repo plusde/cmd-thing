@@ -11,3 +11,16 @@ H:\git\cmd-thing\cmd-thing\cmd-thing\obj\Debug\netcoreapp3.1\cmd-thing.csproj.Co
 H:\git\cmd-thing\cmd-thing\cmd-thing\obj\Debug\netcoreapp3.1\cmd-thing.dll
 H:\git\cmd-thing\cmd-thing\cmd-thing\obj\Debug\netcoreapp3.1\cmd-thing.pdb
 H:\git\cmd-thing\cmd-thing\cmd-thing\obj\Debug\netcoreapp3.1\cmd-thing.genruntimeconfig.cache
+Y:\Github\cmd-thing\cmd-thing\cmd-thing\bin\Debug\netcoreapp3.1\cmd-thing.exe
+Y:\Github\cmd-thing\cmd-thing\cmd-thing\bin\Debug\netcoreapp3.1\cmd-thing.deps.json
+Y:\Github\cmd-thing\cmd-thing\cmd-thing\bin\Debug\netcoreapp3.1\cmd-thing.runtimeconfig.json
+Y:\Github\cmd-thing\cmd-thing\cmd-thing\bin\Debug\netcoreapp3.1\cmd-thing.runtimeconfig.dev.json
+Y:\Github\cmd-thing\cmd-thing\cmd-thing\bin\Debug\netcoreapp3.1\cmd-thing.dll
+Y:\Github\cmd-thing\cmd-thing\cmd-thing\bin\Debug\netcoreapp3.1\cmd-thing.pdb
+Y:\Github\cmd-thing\cmd-thing\cmd-thing\obj\Debug\netcoreapp3.1\cmd-thing.csprojAssemblyReference.cache
+Y:\Github\cmd-thing\cmd-thing\cmd-thing\obj\Debug\netcoreapp3.1\cmd-thing.AssemblyInfoInputs.cache
+Y:\Github\cmd-thing\cmd-thing\cmd-thing\obj\Debug\netcoreapp3.1\cmd-thing.AssemblyInfo.cs
+Y:\Github\cmd-thing\cmd-thing\cmd-thing\obj\Debug\netcoreapp3.1\cmd-thing.csproj.CoreCompileInputs.cache
+Y:\Github\cmd-thing\cmd-thing\cmd-thing\obj\Debug\netcoreapp3.1\cmd-thing.dll
+Y:\Github\cmd-thing\cmd-thing\cmd-thing\obj\Debug\netcoreapp3.1\cmd-thing.pdb
+Y:\Github\cmd-thing\cmd-thing\cmd-thing\obj\Debug\netcoreapp3.1\cmd-thing.genruntimeconfig.cache
