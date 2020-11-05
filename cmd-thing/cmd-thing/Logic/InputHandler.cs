@@ -8,7 +8,7 @@ namespace cmd_thing.Logic {
     class InputHandler {
         readonly Game g;
         private UI inventory;
-        private UI startScreen;
+        private UI menu;
         private bool recievedInput;
         private bool gameRunning;
 
@@ -22,11 +22,12 @@ namespace cmd_thing.Logic {
             set { recievedInput = value; }
         }
         public bool DisplayInventory { get; set; }
+        public bool StartGame { get; set; }
 
         // create game
         public InputHandler() {
             g = new Game();
-            startScreen = new UI(1,3);
+            menu = new UI(1,3);
             DisplayInventory = false;
         }
 
@@ -65,9 +66,17 @@ namespace cmd_thing.Logic {
             g.Character.Inventory = String.Empty;
             return g.Character.CharacterStats + g.Character.Inventory;
         }
+        // draw menu
+        public String DrawMenu() {
+            return g.DrawMenu();
+        }
 
         /* stuff that belongs here even less */
 
+        // output which menu button is selected
+        public int SelectedMenuButton() {
+            return menu.SelectedButton;
+        }
         // output which inventory button is selected
         public int SelectedInvButton() {
             return inventory.SelectedButton;
@@ -90,10 +99,44 @@ namespace cmd_thing.Logic {
             if (Console.KeyAvailable) {
                 ck = Console.ReadKey(true);
                 recievedInput = false;
+                StartGame = false;
 
                 // exit the loop
                 if (ck.Key == ConsoleKey.Escape)
                     return true;
+                // select ass
+                if (ck.Key == ConsoleKey.UpArrow || ck.Key == ConsoleKey.DownArrow || ck.Key == ConsoleKey.LeftArrow || ck.Key == ConsoleKey.RightArrow) {
+                    switch (ck.Key) {
+                        case ConsoleKey.UpArrow:
+                            menu.SelectedButton--;
+                            break;
+                        case ConsoleKey.DownArrow:
+                            menu.SelectedButton++;
+                            break;
+                        case ConsoleKey.LeftArrow:
+                            menu.SelectedButton--;
+                            break;
+                        case ConsoleKey.RightArrow:
+                            menu.SelectedButton++;
+                            break;
+                    }
+                    recievedInput = true;
+                }
+                // do selected ass
+                if (ck.Key == ConsoleKey.Enter) {
+                    if (menu.SelectedButton == 1) {
+                        // start game
+                        StartGame = true;
+                        g.DrawChar();
+                    } else if (menu.SelectedButton == 2) 
+                        // settings or smth
+                        return false;
+                    else 
+                        // exit button
+                        return true;
+                    recievedInput = true;
+                    menu = new UI(1, 3);
+                }
 
             }
             return false;
@@ -108,8 +151,10 @@ namespace cmd_thing.Logic {
                 recievedInput = false;
 
                 // exit the loop
-                if(ck.Key == ConsoleKey.Escape)
+                if (ck.Key == ConsoleKey.Escape) {
+                    recievedInput = true;
                     return true;
+                }
                 if (!DisplayInventory) {
                     // move
                     if (ck.Key == ConsoleKey.UpArrow || ck.Key == ConsoleKey.DownArrow || ck.Key == ConsoleKey.LeftArrow || ck.Key == ConsoleKey.RightArrow) {
@@ -144,18 +189,17 @@ namespace cmd_thing.Logic {
                                 inventory.SelectedButton--;
                                 break;
                             case ConsoleKey.RightArrow:
-                                inventory.SelectedButton = inventory.SelectedButton + 1;
+                                inventory.SelectedButton++;
                                 break;
                         }
                         recievedInput = true;
                     }
                     // do action on selected ass
                     if (ck.Key == ConsoleKey.Enter) {
-                        if(inventory.SelectedButton % 2 == 1) {
+                        if(inventory.SelectedButton % 2 == 1)
                             g.Character.Drop(inventory.SelectedButton % 2 - 1);
-                        } else {
+                        else
                             g.Character.Use(inventory.SelectedButton % 2);
-                        }
                         recievedInput = true;
                         inventory = new UI(2, g.Character.UniqueItemCount);
                     }

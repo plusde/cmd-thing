@@ -76,5 +76,24 @@ namespace cmd_thing.Logic {
             }
             Field.Inside = newField;
         }
+
+        // menu screen
+        public String DrawMenu() {
+            String ws = String.Empty;
+            String content = String.Empty;
+
+            for (int i = 0; i < (Field.Height - 3) / 2; i++)
+                ws += "\n";
+
+            String[] options = { "[Play]", "[Settings]", "[Quit]"};
+
+            foreach(String s in options) {
+                for(int i = 0; i < (Field.Width - s.Length) / 2; i++)
+                    content += " ";
+                content += $"{s}\n";
+            }
+
+            return ws + content + ws;
+        }
     }
 }

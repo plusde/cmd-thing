@@ -17,55 +17,34 @@ namespace cmd_thing {
             Action<String> cwl = Console.WriteLine;
 
             // say some ass
-            cwl("Welcome to cmd-thing.\n");
+            cwl("Welcome to cmd-thing.");
 
             // read inputs (not anymore I locked them)
-            Console.ForegroundColor = ConsoleColor.Gray;
-            cw("Height: ");
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            cw(ConsoleHeight+"\n");
-            String input1 = ConsoleHeight + "";
-            Console.ForegroundColor = ConsoleColor.Gray;
-            cw("Width: ");
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            cw(ConsoleWidth+"");
-            String input2 = ConsoleWidth + "";
-            Console.ReadKey();
+            String input1 = $"{ConsoleHeight}";
+            String input2 = $"{ConsoleWidth}";
 
             // send to inputhandler
             i.SetFielDimensions(input1, input2);
 
             // display ass
             Console.Clear();
-            cw(i.DrawField());
+            /*cw(*/i.DrawField()/*)*/; // don't output anymore, just create the field
 
-            // read new inputs
-            Console.ForegroundColor = ConsoleColor.Gray;
-            cw("\nChar X: ");
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            input1 = Console.ReadLine();
-            Console.ForegroundColor = ConsoleColor.Gray;
-            cw("Char Y: ");
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            input2 = Console.ReadLine();
+            // read new inputs (skip we have a menu now)
+            input1 = $"{ConsoleHeight / 2}";
+            input2 = $"{ConsoleWidth / 2}";
+            i.DrawField(input1, input2); // put char in created field
 
-            // display new ass
-            Console.Clear();
-            foreach (char c in i.DrawField(input1, input2)) {
-                if (c == '#') {
-                    Console.ForegroundColor = ConsoleColor.White;
-                    cw(c + "");
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                }
-                else
-                    cw(c + "");
-            }
+            var aziBabo = true;
+
+            goto Menu;
 
         // input reading
         Game:
             if (!i.Run()) {
                 // update the ass
-                if (i.RecievedInput) {
+                if (i.RecievedInput || i.StartGame) {
+                    i.StartGame = false;
                     Console.Clear();
                     drawingHealth = true;
                     drawingArmor = false;
@@ -146,9 +125,29 @@ namespace cmd_thing {
         Menu:
             if (!i.Menu()) {
                 // update this ass too
-                if (i.RecievedInput) {
-
+                if (i.RecievedInput || aziBabo) {
+                    aziBabo = false;
+                    Console.Clear();
+                    int bracketCtr = 0;
+                    foreach (char c in i.DrawMenu()) {
+                        if (c == '[') {
+                            if (++bracketCtr == i.SelectedMenuButton()) {
+                                Console.BackgroundColor = ConsoleColor.Gray;
+                                Console.ForegroundColor = ConsoleColor.Black;
+                            }
+                            cw(c + "");
+                        } else if (bracketCtr == i.SelectedMenuButton() && c == ']') {
+                            Console.BackgroundColor = ConsoleColor.Gray;
+                            Console.ForegroundColor = ConsoleColor.Black;
+                            cw(c + "");
+                            Console.BackgroundColor = ConsoleColor.Black;
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                        } else
+                            cw(c + "");
+                    }
                 }
+                if (i.StartGame)
+                    goto Game;
                 goto Menu;
             }
         }
