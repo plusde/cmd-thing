@@ -142,6 +142,15 @@ namespace cmd_thing {
                 }
                 goto Game;
             }
+        // main menu, pressing esc will get you here
+        Menu:
+            if (!i.Menu()) {
+                // update this ass too
+                if (i.RecievedInput) {
+
+                }
+                goto Menu;
+            }
         }
     }
 }

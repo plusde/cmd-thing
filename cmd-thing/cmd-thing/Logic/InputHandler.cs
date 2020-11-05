@@ -7,7 +7,8 @@ using System.Text;
 namespace cmd_thing.Logic {
     class InputHandler {
         readonly Game g;
-        private UI ui;
+        private UI inventory;
+        private UI startScreen;
         private bool recievedInput;
         private bool gameRunning;
 
@@ -25,6 +26,7 @@ namespace cmd_thing.Logic {
         // create game
         public InputHandler() {
             g = new Game();
+            startScreen = new UI(1,3);
             DisplayInventory = false;
         }
 
@@ -68,7 +70,7 @@ namespace cmd_thing.Logic {
 
         // output which inventory button is selected
         public int SelectedInvButton() {
-            return ui.selectedButton;
+            return inventory.SelectedButton;
         }
         // output the character's max health
         public int CharMaxHealth() {
@@ -81,6 +83,20 @@ namespace cmd_thing.Logic {
         // output the character's armor
         public int CharArmor() {
             return g.Character.Armor;
+        }
+        // the main menu
+        public bool Menu() {
+            ConsoleKeyInfo ck;
+            if (Console.KeyAvailable) {
+                ck = Console.ReadKey(true);
+                recievedInput = false;
+
+                // exit the loop
+                if (ck.Key == ConsoleKey.Escape)
+                    return true;
+
+            }
+            return false;
         }
 
         // this should be the game
@@ -112,35 +128,36 @@ namespace cmd_thing.Logic {
                     if (ck.Key == ConsoleKey.I) {
                         DisplayInventory = true;
                         recievedInput = true;
-                        ui = new UI(2, g.Character.UniqueItemCount);
+                        inventory = new UI(2, g.Character.UniqueItemCount);
                     }
                 } else {
                     // select ass
                     if (ck.Key == ConsoleKey.UpArrow || ck.Key == ConsoleKey.DownArrow || ck.Key == ConsoleKey.LeftArrow || ck.Key == ConsoleKey.RightArrow) {
                         switch (ck.Key) {
                             case ConsoleKey.UpArrow:
-                                ui.selectedButton-=2;
+                                inventory.SelectedButton-=2;
                                 break;
                             case ConsoleKey.DownArrow:
-                                ui.selectedButton+=2;
+                                inventory.SelectedButton+=2;
                                 break;
                             case ConsoleKey.LeftArrow:
-                                ui.selectedButton--;
+                                inventory.SelectedButton--;
                                 break;
                             case ConsoleKey.RightArrow:
-                                ui.selectedButton++;
+                                inventory.SelectedButton = inventory.SelectedButton + 1;
                                 break;
                         }
                         recievedInput = true;
                     }
                     // do action on selected ass
                     if (ck.Key == ConsoleKey.Enter) {
-                        if(ui.selectedButton % 2 == 1) {
-                            g.Character.Drop(ui.selectedButton % 2 - 1);
+                        if(inventory.SelectedButton % 2 == 1) {
+                            g.Character.Drop(inventory.SelectedButton % 2 - 1);
                         } else {
-                            g.Character.Use(ui.selectedButton % 2);
+                            g.Character.Use(inventory.SelectedButton % 2);
                         }
                         recievedInput = true;
+                        inventory = new UI(2, g.Character.UniqueItemCount);
                     }
                     // close inventory
                     if (ck.Key == ConsoleKey.I) {
