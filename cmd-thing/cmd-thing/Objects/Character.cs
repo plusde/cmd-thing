@@ -1,4 +1,5 @@
-﻿using cmd_thing.Utility;
+﻿using cmd_thing.Logic.Extentions;
+using cmd_thing.Utility;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,8 @@ namespace cmd_thing.Objects {
         private String inventoryString;
         private int uniqueItemCount;
         private readonly Dictionary<Item, int> inventory;
+
+        // statistics
 
         public int MaxHealth { get; set; }
         public int Health { 
@@ -26,6 +29,9 @@ namespace cmd_thing.Objects {
             get { return uniqueItemCount; }
             set { uniqueItemCount = inventory.Count; }
         }
+
+        // display of stats
+
         public String CharacterStats {
             get {
                 String output = String.Empty;
@@ -93,8 +99,8 @@ namespace cmd_thing.Objects {
         public Character(int x, int y) {
             Coods = new Coods(x, y);
             inventory = new Dictionary<Item, int>();
-            Health = 20;
             MaxHealth = 20;
+            Health = 20;
         }
 
         // item actions
@@ -133,11 +139,15 @@ namespace cmd_thing.Objects {
             if (found) {
                 switch (item) {
                     case Item.Armor:
-                        Armor = 10;
+                        Armor = item.ReturnStatistics()[Property.ArmDisplay];
                         inventory[item]--;
                         break;
                     case Item.HealthPotion:
-                        Health += 5;
+                        switch (item.ReturnStatistics()[Property.PotEffect]) {
+                            case 0:
+                                Health += item.ReturnStatistics()[Property.PotBonus] / 5;
+                                break;
+                        }
                         inventory[item]--;
                         break;
                 }

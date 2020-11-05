@@ -56,16 +56,31 @@ namespace cmd_thing.Logic {
                 if (int.TryParse(s2, out int i2))
                     g.Character/*.Coods */= new /*Utility.Coods*/Character(i1, i2); // character is never made so I need to make it now, but if I'd use this function every frame in the future it's better to not keep making new characters
                                                                                     // I'm using the other function now so no need to change this.
-            return g.DrawChar();
+            return g.Character.CharacterStats + g.DrawChar();
         }
         // draw inventory
         public String DrawInventory() {
             g.Character.Inventory = String.Empty;
             return g.Character.CharacterStats + g.Character.Inventory;
         }
+
+        /* stuff that belongs here even less */
+
         // output which inventory button is selected
         public int SelectedInvButton() {
             return ui.selectedButton;
+        }
+        // output the character's max health
+        public int CharMaxHealth() {
+            return g.Character.MaxHealth;
+        }
+        // output the character's health
+        public int CharHealth() {
+            return g.Character.Health;
+        }
+        // output the character's armor
+        public int CharArmor() {
+            return g.Character.Armor;
         }
 
         // this should be the game

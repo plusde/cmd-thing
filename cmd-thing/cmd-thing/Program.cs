@@ -9,6 +9,9 @@ namespace cmd_thing {
             const int ConsoleHeight = 29;
             const int ConsoleWidth = 100;
 
+            bool drawingHealth = true;
+            bool drawingArmor = false;
+
             // I'm lazy
             Action<String> cw = Console.Write;
             Action<String> cwl = Console.WriteLine;
@@ -64,20 +67,41 @@ namespace cmd_thing {
                 // update the ass
                 if (i.RecievedInput) {
                     Console.Clear();
+                    drawingHealth = true;
+                    drawingArmor = false;
                     if (i.DisplayInventory) {
-                        int ctr = 0;
+                        int bracketCtr = 0;
+                        int armHealthCounter = 0;
                         foreach (char c in i.DrawInventory()) {
-                            if (c == '|' || c == '-') {
+                            if (drawingHealth && c=='*') {
+                                if (armHealthCounter <= i.CharHealth()) {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    cw(c + "");
+                                    Console.ForegroundColor = ConsoleColor.Gray;
+                                } else
+                                    cw(c + "");
+                                if (++armHealthCounter == i.CharMaxHealth()) {
+                                    drawingHealth = false;
+                                    drawingArmor = true;
+                                    armHealthCounter = 0;
+                                }
+                            } else if (drawingArmor && c=='*') {
+                                if (++armHealthCounter == i.CharArmor())
+                                    drawingArmor = false;
+                                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                                cw(c + "");
+                                Console.ForegroundColor = ConsoleColor.Gray;
+                            } else if (c == '|' || c == '-') {
                                 Console.ForegroundColor = ConsoleColor.DarkGray;
                                 cw(c + "");
                                 Console.ForegroundColor = ConsoleColor.Gray;
                             } else if (c == '[') {
-                                if(++ctr == i.SelectedInvButton()) {
+                                if(++bracketCtr == i.SelectedInvButton()) {
                                     Console.BackgroundColor = ConsoleColor.Gray;
                                     Console.ForegroundColor = ConsoleColor.Black;
                                 }
                                 cw(c + "");
-                            } else if (ctr == i.SelectedInvButton() && c == ']') {
+                            } else if (bracketCtr == i.SelectedInvButton() && c == ']') {
                                 Console.BackgroundColor = ConsoleColor.Gray;
                                 Console.ForegroundColor = ConsoleColor.Black;
                                 cw(c + "");
@@ -87,8 +111,27 @@ namespace cmd_thing {
                                 cw(c + "");
                         }
                     } else {
+                        int armHealthCounter = 0;
                         foreach (char c in i.DrawField()) {
-                            if (c == '#') {
+                            if (drawingHealth && c == '*') {
+                                if (armHealthCounter <= i.CharHealth()) {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    cw(c + "");
+                                    Console.ForegroundColor = ConsoleColor.Gray;
+                                } else
+                                    cw(c + "");
+                                if (++armHealthCounter == i.CharMaxHealth()) {
+                                    drawingHealth = false;
+                                    drawingArmor = true;
+                                    armHealthCounter = 0;
+                                }
+                            } else if (drawingArmor && c == '*') {
+                                if (++armHealthCounter == i.CharArmor())
+                                    drawingArmor = false;
+                                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                                cw(c + "");
+                                Console.ForegroundColor = ConsoleColor.Gray;
+                            } else if (c == '#') {
                                 Console.ForegroundColor = ConsoleColor.White;
                                 cw(c + "");
                                 Console.ForegroundColor = ConsoleColor.DarkGray;
