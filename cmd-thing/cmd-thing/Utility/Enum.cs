@@ -4,14 +4,15 @@ using System.Text;
 
 namespace cmd_thing.Utility {
     public enum Item {
+        BareHands,
         Sword,
         HealthPotion,
-        Armor
+        LeatherArmor,
+        FullPlate
     }
-    public enum Property {
+    public enum ItemProperty {
         // weapon properties
         WepStrengthReq,
-        WepDurability,
         WepDamage,
         WepRolls,
 
@@ -29,5 +30,17 @@ namespace cmd_thing.Utility {
         ArmBlockPerc,
         ArmDamageRed,
         ArmDisplay
+    }
+    public enum Enemy {
+        // Enemy0
+        Goblin,
+        Slime
+    }
+    public enum EnemyProperty {
+        Health,
+        Damage,
+        DamageRolls,
+        BlockPerc,
+        DamageRed
     }
 }

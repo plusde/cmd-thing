@@ -25,6 +25,8 @@ namespace cmd_thing.Objects {
                                     rinside += ",";
                                 else if (r == 182)
                                     rinside += "O";
+                                else if (r == 181)
+                                    rinside += "X";
                                 else
                                     rinside += " ";
                             }

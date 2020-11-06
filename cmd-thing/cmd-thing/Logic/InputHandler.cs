@@ -92,7 +92,7 @@ namespace cmd_thing.Logic {
         }
         // output the character's armor
         public int CharArmor() {
-            return g.Character.Armor;
+            return g.Character.ArmorDisplay;
         }
         // the main menu
         public bool Menu() {
@@ -145,7 +145,7 @@ namespace cmd_thing.Logic {
             return false;
         }
 
-        // map screen
+        // map & inventory screen
         public bool Map() {
             gameRunning = true;
             ConsoleKeyInfo ck;
