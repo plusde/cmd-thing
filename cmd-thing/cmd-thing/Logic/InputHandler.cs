@@ -102,9 +102,11 @@ namespace cmd_thing.Logic {
                 recievedInput = false;
                 StartGame = false;
 
-                // exit the loop
-                if (ck.Key == ConsoleKey.Escape)
-                    return true;
+                // go back to the game
+                if (ck.Key == ConsoleKey.Escape) {
+                    StartGame = true;
+                    g.DrawChar();
+                }
                 // select ass
                 if (ck.Key == ConsoleKey.UpArrow || ck.Key == ConsoleKey.DownArrow || ck.Key == ConsoleKey.LeftArrow || ck.Key == ConsoleKey.RightArrow) {
                     switch (ck.Key) {

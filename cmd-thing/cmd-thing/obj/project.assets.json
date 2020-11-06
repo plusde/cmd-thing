@@ -8,20 +8,27 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\thoma\\.nuget\\packages\\": {}
+    "C:\\Users\\salt\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "Y:\\Github\\cmd-thing\\cmd-thing\\cmd-thing\\cmd-thing.csproj",
+      "projectUniqueName": "H:\\git\\cmd-thing\\cmd-thing\\cmd-thing\\cmd-thing.csproj",
       "projectName": "cmd-thing",
-      "projectPath": "Y:\\Github\\cmd-thing\\cmd-thing\\cmd-thing\\cmd-thing.csproj",
-      "packagesPath": "C:\\Users\\thoma\\.nuget\\packages\\",
-      "outputPath": "Y:\\Github\\cmd-thing\\cmd-thing\\cmd-thing\\obj\\",
+      "projectPath": "H:\\git\\cmd-thing\\cmd-thing\\cmd-thing\\cmd-thing.csproj",
+      "packagesPath": "C:\\Users\\salt\\.nuget\\packages\\",
+      "outputPath": "H:\\git\\cmd-thing\\cmd-thing\\cmd-thing\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet\\",
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\thoma\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\salt\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"

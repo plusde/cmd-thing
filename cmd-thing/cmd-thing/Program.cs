@@ -122,8 +122,12 @@ namespace cmd_thing
                                 Console.ForegroundColor = ConsoleColor.White;
                                 Console.Write(c);
                                 Console.ForegroundColor = ConsoleColor.DarkGray;
-                            } else
+                            } else {
+                                // idk what you changed but stuff became white :anger
+                                // should always be gray now
+                                Console.ForegroundColor = ConsoleColor.DarkGray;
                                 Console.Write(c);
+                            }
                         }
                     }
                 }
