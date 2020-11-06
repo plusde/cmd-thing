@@ -227,11 +227,10 @@ namespace cmd_thing.Logic {
                                 item += c;
                         }
                         // do ass with it
-                        if (inventory.SelectedButton % 2 == 1) {
-                            g.Character.Drop(arr[inventory.SelectedButton%(g.Character.UniqueItemCount)]);
-                        } else {
-                            g.Character.Use(arr[inventory.SelectedButton % (g.Character.UniqueItemCount)]);
-                        }
+                        if (inventory.SelectedButton % 2 == 1)
+                            g.Character.Drop(arr[(int) Math.Floor((double) inventory.SelectedButton / 2)]);
+                        else
+                            g.Character.Use(arr[(int) Math.Floor((double) inventory.SelectedButton / 2) - 1]);
                         recievedInput = true;
                     }
                     // close inventory
