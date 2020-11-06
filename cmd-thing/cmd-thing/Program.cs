@@ -16,8 +16,8 @@ namespace cmd_thing
             bool drawingHealth = false;
             bool drawingArmor = false;
             // I'm lazy  // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA MACROS NOT LIKE THISSS BAD
-            //Action<String> Console.Write = Console.Write;
-            //Action<String> Console.Write = Console.WriteLine;
+            //Action<String> cw = Console.Write;
+            //Action<String> cwl = Console.WriteLine;
 
 
             // say some ass
@@ -33,7 +33,7 @@ namespace cmd_thing
             // display ass
             Console.Clear();
             /*Console.Write(*/
-            i.DrawField()/*)*/; // don't output anymore, just create the field [tbh dont wanna know why you're doing this cursed commenting but aight]
+            i.DrawField()/*)*/; // don't output anymore, just create the field [tbh dont wanna know why you're doing this cursed commenting but aight] because it's funny :gladders:
 
             // read new inputs (skip we have a menu now)
             input1 = $"{ConsoleWidth / 2}";
@@ -47,8 +47,8 @@ namespace cmd_thing
             // no goto :madcat:   
         }
 
-        static void StartGame(InputHandler i, bool aziBabo, ref bool drawingHealth, ref bool drawingArmor) {
-            while (!i.Run()) {
+        static void StartGame(InputHandler i, ref bool drawingHealth, ref bool drawingArmor) { // no azibabo :aziBabo:
+            while (!i.Map()) {
                 // update the ass
                 if (i.RecievedInput || i.StartGame) {
                     i.StartGame = false;
@@ -161,7 +161,7 @@ namespace cmd_thing
                     }
                 }
                 if (i.StartGame)
-                    StartGame(i, aziBabo, ref drawingHealth, ref drawingArmor);
+                    StartGame(i, ref drawingHealth, ref drawingArmor); // azibabo wasn't needed here
             }
             return;
         }

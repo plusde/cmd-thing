@@ -145,8 +145,8 @@ namespace cmd_thing.Logic {
             return false;
         }
 
-        // this should be the game
-        public bool Run() {
+        // map screen
+        public bool Map() {
             gameRunning = true;
             ConsoleKeyInfo ck;
             if (Console.KeyAvailable) {
