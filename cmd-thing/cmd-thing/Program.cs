@@ -60,7 +60,7 @@ namespace cmd_thing
                         int armHealthCounter = 0;
                         foreach (char c in i.DrawInventory()) {
                             if (drawingHealth && c == '*') {
-                                if (armHealthCounter <= i.CharHealth()) {
+                                if (armHealthCounter < i.CharHealth()) {
                                     Console.ForegroundColor = ConsoleColor.Red;
                                     Console.Write(c);
                                     Console.ForegroundColor = ConsoleColor.Gray;
@@ -101,7 +101,7 @@ namespace cmd_thing
                         int armHealthCounter = 0;
                         foreach (char c in i.DrawField()) {
                             if (drawingHealth && c == '*') {
-                                if (armHealthCounter <= i.CharHealth()) {
+                                if (armHealthCounter < i.CharHealth()) {
                                     Console.ForegroundColor = ConsoleColor.Red;
                                     Console.Write(c);
                                     Console.ForegroundColor = ConsoleColor.Gray;
