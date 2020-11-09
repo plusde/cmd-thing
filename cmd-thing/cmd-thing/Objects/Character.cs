@@ -35,11 +35,14 @@ namespace cmd_thing.Objects {
         }
 
         // combat values
+
+        public Item UsedItem { get; set; }
+
         private int damageDealt;
         public int DamageDealt { 
             get { return damageDealt; }
             set { 
-                damageDealt = new Random().Next(RightHand.ReturnStatistics()[ItemProperty.WepDamage + 1]) * RightHand.ReturnStatistics()[ItemProperty.WepRolls]; 
+                damageDealt = new Random().Next(UsedItem.ReturnStatistics()[ItemProperty.WepDamage + 1]) * UsedItem.ReturnStatistics()[ItemProperty.WepRolls]; 
             }
         }
         private int damageRecieved;
@@ -65,6 +68,11 @@ namespace cmd_thing.Objects {
             set {
                 if (new Random().Next(100) > Armor.ReturnStatistics()[ItemProperty.ArmBlockPerc])
                     recievedBlocked = new Random().Next(Armor.ReturnStatistics()[ItemProperty.ArmDamageRed + 1]);
+                // left hand blocks
+                // this would make you better always use the left hand when attacking with dual weapons but oh well
+                if(UsedItem == LeftHand)
+                    if (new Random().Next(100) > UsedItem.ReturnStatistics()[ItemProperty.ArmBlockPerc])
+                        recievedBlocked += new Random().Next(UsedItem.ReturnStatistics()[ItemProperty.ArmDamageRed + 1]);
                 if (damageRecieved - recievedBlocked > 0)
                     recievedBlocked = damageRecieved;
             }
