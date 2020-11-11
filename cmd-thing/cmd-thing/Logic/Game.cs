@@ -87,13 +87,15 @@ namespace cmd_thing.Logic {
         // fighting screen
         public String DrawEnemyEncounter() {
             String hws = String.Empty;
-            String output = String.Empty;
+            String stats = String.Empty;
+            String report = String.Empty;
+            String options = String.Empty;
             String header = String.Empty;
             String footer = String.Empty;
 
             // header of encounter screen
             header += $"\n Combat site: {Character.Enemy} ";
-            int olength = output.Length;
+            int olength = header.Length;
             for (int i = 0; i < 100 - olength; i++)
                 header += "-";
             header += " \n";
@@ -111,21 +113,27 @@ namespace cmd_thing.Logic {
                 footer += "-";
 
             // combat stats
-            String stats = $"| {Character.EnemyOutput}";
-            hws = String.Empty;
+            stats += $"| {Character.EnemyOutput}";
             for (int i = 0; i < (Field.Width - (stats.Length - 2)); i++)
                 hws += " ";
             stats += hws + " |\n";
 
             // combat report
+            hws = String.Empty;
+            for (int i = 0; i < (Field.Width - (Character.CombatReport.Length + 4)); i++)
+                hws += " ";
+            report += "| " + Character.CombatReport + hws + " |";
 
             // combat options
-            String options = $"[Use {Character.LeftHand}]   [Run]   [Use {Character.RightHand}]";
-            for (int i = 0; i < (Field.Width - (options.Length + 4)) / 2; i++)
+            options += $"[Use {Character.LeftHand}]   [Run]   [Use {Character.RightHand}]";
+            hws = String.Empty;
+            for (int i = 0; i < Math.Floor((double) (Field.Width - (options.Length + 4)) / 2); i++)
                 hws += " ";
+            if (options.Length % 2 == 1)
+                options += " ";
             options = "| " + hws + options + hws + " |\n";
 
-            return output;
+            return header + stats + report + options + footer;
         }
 
         // menu screen

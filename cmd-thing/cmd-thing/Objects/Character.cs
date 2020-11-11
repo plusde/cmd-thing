@@ -36,8 +36,7 @@ namespace cmd_thing.Objects {
 
         // combat values
 
-        public Item UsedItem { get; set; }
-
+        private Item UsedItem;
         private int damageDealt;
         public int DamageDealt { 
             get { return damageDealt; }
@@ -229,6 +228,21 @@ namespace cmd_thing.Objects {
             EnemyStats = new Dictionary<EnemyProperty, int>();
             foreach(KeyValuePair<EnemyProperty,int> ei in e.ReturnStatistics())
                 EnemyStats.Add(ei.Key,ei.Value);
+        }
+
+        public void LeftAttack() {
+            UsedItem = LeftHand;
+            Attack();
+        }
+        public void RightAttack() {
+            UsedItem = RightHand;
+            Attack();
+        }
+        private void Attack() {
+            DamageDealt = 0;
+            DamageRecieved = 0;
+            RecievedBlocked = 0;
+            dealtBlocked = 0;
         }
     }
 }

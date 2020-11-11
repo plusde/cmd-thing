@@ -230,8 +230,9 @@ namespace cmd_thing.Logic {
                         // update inventory
                         int sel = inventory.SelectedButton;
                         g.Character.UniqueItemCount = 0;
-                        inventory = new UI(2, g.Character.UniqueItemCount);
-                        inventory.SelectedButton = sel;
+                        inventory = new UI(2, g.Character.UniqueItemCount) {
+                            SelectedButton = sel
+                        };
                         recievedInput = true;
                     }
                     // close inventory
