@@ -32,16 +32,16 @@ namespace cmd_thing.Logic {
         public void MoveChar(ConsoleKey ck) {
             switch (ck) {
                 case ConsoleKey.UpArrow:
-                    Character.Coods = new Character(Character.Coods.X, Character.Coods.Y - 1).Coods;
+                    Character.Coods = new Utility.Coods(Character.Coods.X, Character.Coods.Y - 1);
                     break;
                 case ConsoleKey.DownArrow:
-                    Character.Coods = new Character(Character.Coods.X, Character.Coods.Y + 1).Coods;
+                    Character.Coods = new Utility.Coods(Character.Coods.X, Character.Coods.Y + 1);
                     break;
                 case ConsoleKey.LeftArrow:
-                    Character.Coods = new Character(Character.Coods.X - 1, Character.Coods.Y).Coods;
+                    Character.Coods = new Utility.Coods(Character.Coods.X - 1, Character.Coods.Y);
                     break;
                 case ConsoleKey.RightArrow:
-                    Character.Coods = new Character(Character.Coods.X + 1, Character.Coods.Y).Coods;
+                    Character.Coods = new Utility.Coods(Character.Coods.X + 1, Character.Coods.Y);
                     break;
             }
         }
