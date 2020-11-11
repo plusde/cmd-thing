@@ -15,6 +15,7 @@ namespace cmd_thing
             const int ConsoleWidth = 100;
             bool drawingHealth = false;
             bool drawingArmor = false;
+            bool healthArmorText = false;
             // I'm lazy  // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA MACROS NOT LIKE THISSS BAD
             //Action<String> cw = Console.Write;
             //Action<String> cwl = Console.WriteLine;
@@ -42,12 +43,12 @@ namespace cmd_thing
 
             var aziBabo = true;
 
-            LoadMenu(i, aziBabo, ref drawingHealth, ref drawingArmor);
+            LoadMenu(i, aziBabo, ref drawingHealth, ref drawingArmor, ref healthArmorText);
 
             // no goto :madcat:   
         }
 
-        static void StartGame(InputHandler i, ref bool drawingHealth, ref bool drawingArmor) { // no azibabo :aziBabo:
+        static void StartGame(InputHandler i, ref bool drawingHealth, ref bool drawingArmor, ref bool healthArmorText) { // no azibabo :aziBabo:
             while (!i.Map()) {
                 // update the ass
                 if (i.RecievedInput || i.StartGame) {
@@ -59,11 +60,15 @@ namespace cmd_thing
                         int bracketCtr = 0;
                         int armHealthCounter = 0;
                         foreach (char c in i.DrawInventory()) {
+                            if (drawingArmor || drawingHealth)
+                                healthArmorText = true;
+                            else
+                                healthArmorText = false;
                             if (drawingHealth && c == '*') {
                                 if (armHealthCounter < i.CharHealth()) {
                                     Console.ForegroundColor = ConsoleColor.Red;
                                     Console.Write(c);
-                                    Console.ForegroundColor = ConsoleColor.Gray;
+                                    Console.ForegroundColor = ConsoleColor.DarkGray;
                                 } else
                                     Console.Write(c);
                                 if (++armHealthCounter == i.CharMaxHealth()) {
@@ -77,6 +82,10 @@ namespace cmd_thing
                                 Console.ForegroundColor = ConsoleColor.DarkCyan;
                                 Console.Write(c);
                                 Console.ForegroundColor = ConsoleColor.Gray;
+                            } else if (c == '\n') {
+                                Console.ForegroundColor = ConsoleColor.Gray;
+                                drawingArmor = false;
+                                Console.Write(c);
                             } else if (c == '|' || c == '-') {
                                 Console.ForegroundColor = ConsoleColor.DarkGray;
                                 Console.Write(c);
@@ -93,9 +102,11 @@ namespace cmd_thing
                                 Console.Write(c);
                                 Console.BackgroundColor = ConsoleColor.Black;
                                 Console.ForegroundColor = ConsoleColor.Gray;
-                            }
-                            else
+                            } else if (healthArmorText)
                                 Console.Write(c);
+                            else {
+                                Console.Write(c);
+                            }
                         }
                     } else {
                         int armHealthCounter = 0;
@@ -133,7 +144,7 @@ namespace cmd_thing
                 }
             }
         }
-        static void LoadMenu(InputHandler i, bool aziBabo, ref bool drawingHealth, ref bool drawingArmor) {
+        static void LoadMenu(InputHandler i, bool aziBabo, ref bool drawingHealth, ref bool drawingArmor, ref bool healthArmorText) {
             // fuck you im using a while loop :dontcare:
             while (!i.Menu()) {
                 // update this ass too
@@ -161,7 +172,7 @@ namespace cmd_thing
                     }
                 }
                 if (i.StartGame)
-                    StartGame(i, ref drawingHealth, ref drawingArmor); // azibabo wasn't needed here
+                    StartGame(i, ref drawingHealth, ref drawingArmor, ref healthArmorText); // azibabo wasn't needed here
             }
             return;
         }

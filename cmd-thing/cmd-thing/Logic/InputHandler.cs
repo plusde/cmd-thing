@@ -147,11 +147,6 @@ namespace cmd_thing.Logic {
                 ck = Console.ReadKey(true);
                 recievedInput = false;
 
-                // exit the loop
-                if (ck.Key == ConsoleKey.Escape) {
-                    recievedInput = true;
-                    return true;
-                }
                 if (!DisplayInventory) {
                     // move
                     if (ck.Key == ConsoleKey.UpArrow || ck.Key == ConsoleKey.DownArrow || ck.Key == ConsoleKey.LeftArrow || ck.Key == ConsoleKey.RightArrow) {
@@ -172,6 +167,11 @@ namespace cmd_thing.Logic {
                         recievedInput = true;
                         g.Character.UniqueItemCount = 0;
                         inventory = new UI(2, g.Character.UniqueItemCount);
+                    }
+                    // exit the loop
+                    if (ck.Key == ConsoleKey.Escape) {
+                        recievedInput = true;
+                        return true;
                     }
                 } else {
                     // select ass
@@ -226,10 +226,16 @@ namespace cmd_thing.Logic {
                             g.Character.Drop(arr[(int) Math.Floor((double) inventory.SelectedButton / 2)]);
                         else
                             g.Character.Use(arr[(int) Math.Floor((double) inventory.SelectedButton / 2) - 1]);
+
+                        // update inventory
+                        int sel = inventory.SelectedButton;
+                        g.Character.UniqueItemCount = 0;
+                        inventory = new UI(2, g.Character.UniqueItemCount);
+                        inventory.SelectedButton = sel;
                         recievedInput = true;
                     }
                     // close inventory
-                    if (ck.Key == ConsoleKey.I) {
+                    if (ck.Key == ConsoleKey.I || ck.Key == ConsoleKey.Escape) {
                         DisplayInventory = false;
                         recievedInput = true;
                     }
