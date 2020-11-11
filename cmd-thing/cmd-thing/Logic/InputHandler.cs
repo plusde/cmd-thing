@@ -108,18 +108,12 @@ namespace cmd_thing.Logic {
                     g.DrawChar();
                 }
                 // select ass
-                if (ck.Key == ConsoleKey.UpArrow || ck.Key == ConsoleKey.DownArrow || ck.Key == ConsoleKey.LeftArrow || ck.Key == ConsoleKey.RightArrow) {
+                if (ck.Key == ConsoleKey.UpArrow || ck.Key == ConsoleKey.DownArrow) {
                     switch (ck.Key) {
                         case ConsoleKey.UpArrow:
                             menu.SelectedButton--;
                             break;
                         case ConsoleKey.DownArrow:
-                            menu.SelectedButton++;
-                            break;
-                        case ConsoleKey.LeftArrow:
-                            menu.SelectedButton--;
-                            break;
-                        case ConsoleKey.RightArrow:
                             menu.SelectedButton++;
                             break;
                     }
@@ -176,6 +170,7 @@ namespace cmd_thing.Logic {
                     if (ck.Key == ConsoleKey.I) {
                         DisplayInventory = true;
                         recievedInput = true;
+                        g.Character.UniqueItemCount = 0;
                         inventory = new UI(2, g.Character.UniqueItemCount);
                     }
                 } else {
