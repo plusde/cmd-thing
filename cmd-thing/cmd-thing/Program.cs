@@ -109,7 +109,55 @@ namespace cmd_thing
                             }
                         }
                     } else if (i.FightOngoing) {
-
+                        int bracketCtr = 0;
+                        int armHealthCounter = 0;
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        foreach (char c in i.DrawFight()) {
+                            if (drawingArmor || drawingHealth)
+                                healthArmorText = true;
+                            else
+                                healthArmorText = false;
+                            if (drawingHealth && c == '*') {
+                                if (armHealthCounter < i.CharHealth()) {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.Write(c);
+                                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                                } else
+                                    Console.Write(c);
+                                if (++armHealthCounter == i.CharMaxHealth()) {
+                                    drawingHealth = false;
+                                    drawingArmor = true;
+                                    armHealthCounter = 0;
+                                }
+                            } else if (drawingArmor && c == '*') {
+                                if (++armHealthCounter == i.CharArmor())
+                                    drawingArmor = false;
+                                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                                Console.Write(c);
+                                Console.ForegroundColor = ConsoleColor.Gray;
+                            } else if (c == '\n') {
+                                Console.ForegroundColor = ConsoleColor.Gray;
+                                drawingArmor = false;
+                                Console.Write(c);
+                            } else if (c == '|' || c == '-') {
+                                Console.ForegroundColor = ConsoleColor.DarkGray;
+                                Console.Write(c);
+                                Console.ForegroundColor = ConsoleColor.Gray;
+                            } else if(c == '[') {
+                                if (++bracketCtr == i.SelectedEncounterButton()) {
+                                    Console.BackgroundColor = ConsoleColor.Gray;
+                                    Console.ForegroundColor = ConsoleColor.Black;
+                                }
+                                Console.Write(c);
+                            } else if (bracketCtr == i.SelectedEncounterButton() && c == ']') {
+                                Console.BackgroundColor = ConsoleColor.Gray;
+                                Console.ForegroundColor = ConsoleColor.Black;
+                                Console.Write(c);
+                                Console.BackgroundColor = ConsoleColor.Black;
+                                Console.ForegroundColor = ConsoleColor.Gray;
+                            } else
+                                Console.Write(c);
+                        }
                     } else{
                         int armHealthCounter = 0;
                         foreach (char c in i.DrawField()) {

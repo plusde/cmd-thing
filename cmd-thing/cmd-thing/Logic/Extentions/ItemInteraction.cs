@@ -20,6 +20,11 @@ namespace cmd_thing.Logic.Extentions {
                     output.Add(ItemProperty.WepDamage, 15);
                     output.Add(ItemProperty.WepStrengthReq, 5);
                     break;
+                case Item.BirthdaySuit:
+                    output.Add(ItemProperty.ArmDamageRed, 0);
+                    output.Add(ItemProperty.ArmBlockPerc, 50);
+                    output.Add(ItemProperty.ArmDisplay, 0);
+                    break;
                 case Item.LeatherArmor:
                     output.Add(ItemProperty.ArmDamageRed, 10);
                     output.Add(ItemProperty.ArmBlockPerc, 20);

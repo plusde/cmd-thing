@@ -8,6 +8,7 @@ using System.Text;
 namespace cmd_thing.Logic {
     class InputHandler {
         readonly Game g;
+        private UI enemyEncounter;
         private UI inventory;
         private UI menu;
         private bool recievedInput;
@@ -32,6 +33,7 @@ namespace cmd_thing.Logic {
         public InputHandler() {
             g = new Game();
             menu = new UI(1,3);
+            enemyEncounter = new UI(3, 1);
             DisplayInventory = false;
         }
 
@@ -76,11 +78,15 @@ namespace cmd_thing.Logic {
         }
         // draw fight
         public String DrawFight() {
-            return g.DrawEnemyEncounter();
+            return g.Character.CharacterStats + g.DrawEnemyEncounter();
         }
 
         /* stuff that belongs here even less */
 
+        // output which encounter button is selected
+        public int SelectedEncounterButton() {
+            return enemyEncounter.SelectedButton;
+        }
         // output which menu button is selected
         public int SelectedMenuButton() {
             return menu.SelectedButton;
@@ -154,7 +160,40 @@ namespace cmd_thing.Logic {
                 ck = Console.ReadKey(true);
                 recievedInput = false;
 
-                if (!DisplayInventory) {
+                if (FightOngoing) {
+                    // select ass
+                    if (ck.Key == ConsoleKey.LeftArrow || ck.Key == ConsoleKey.RightArrow) {
+                        switch (ck.Key) {
+                            case ConsoleKey.LeftArrow:
+                                enemyEncounter.SelectedButton--;
+                                break;
+                            case ConsoleKey.RightArrow:
+                                enemyEncounter.SelectedButton++;
+                                break;
+                        }
+                        recievedInput = true;
+                    }
+                    // do action on selected ass
+                    if(ck.Key == ConsoleKey.Enter) {
+                        switch (enemyEncounter.SelectedButton) {
+                            case 1:
+                                g.Character.LeftAttack();
+                                break;
+                            case 2:
+                                if (!g.Character.Flee())
+                                    g.Character.NoAttack();
+                                else {
+                                    g.EnemyEncountered = false;
+                                    g.Character.ResetEncounter();
+                                }
+                                break;
+                            case 3:
+                                g.Character.RightAttack();
+                                break;
+                        }
+                        recievedInput = true;
+                    }
+                } else if (!DisplayInventory) {
                     // move
                     if (ck.Key == ConsoleKey.UpArrow || ck.Key == ConsoleKey.DownArrow || ck.Key == ConsoleKey.LeftArrow || ck.Key == ConsoleKey.RightArrow) {
                         g.MoveChar(ck.Key);
@@ -185,10 +224,10 @@ namespace cmd_thing.Logic {
                     if (ck.Key == ConsoleKey.UpArrow || ck.Key == ConsoleKey.DownArrow || ck.Key == ConsoleKey.LeftArrow || ck.Key == ConsoleKey.RightArrow) {
                         switch (ck.Key) {
                             case ConsoleKey.UpArrow:
-                                inventory.SelectedButton-=2;
+                                inventory.SelectedButton -= 2;
                                 break;
                             case ConsoleKey.DownArrow:
-                                inventory.SelectedButton+=2;
+                                inventory.SelectedButton += 2;
                                 break;
                             case ConsoleKey.LeftArrow:
                                 inventory.SelectedButton--;

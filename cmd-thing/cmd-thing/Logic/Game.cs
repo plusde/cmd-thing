@@ -1,4 +1,5 @@
-﻿using cmd_thing.Objects;
+﻿using cmd_thing.Logic.Extentions;
+using cmd_thing.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace cmd_thing.Logic {
         public Field Field { get; set; }
         public Character Character { get; set; }
         public bool EnemyEncountered { get; set; }
+        private bool alreadyAttacked;
 
         // put char in field
         public String DrawChar() {
@@ -71,6 +73,7 @@ namespace cmd_thing.Logic {
                         // found enemy
                         case 'X':
                             Character.EncounterEnemy0();
+                            alreadyAttacked = false;
                             EnemyEncountered = true;
                             break;
                         // nothing nearby to interact with
@@ -87,6 +90,7 @@ namespace cmd_thing.Logic {
         // fighting screen
         public String DrawEnemyEncounter() {
             String hws = String.Empty;
+            String inb = String.Empty;
             String stats = String.Empty;
             String report = String.Empty;
             String options = String.Empty;
@@ -104,6 +108,12 @@ namespace cmd_thing.Logic {
                 header += " ";
             header += "|\n";
 
+            // inb
+            inb += "|";
+            for (int i = 0; i < 98; i++)
+                inb += " ";
+            inb += "|\n";
+
             // footer
             footer += "|";
             for (int i = 0; i < 98; i++)
@@ -114,15 +124,23 @@ namespace cmd_thing.Logic {
 
             // combat stats
             stats += $"| {Character.EnemyOutput}";
-            for (int i = 0; i < (Field.Width - (stats.Length - 2)); i++)
+            for (int i = 0; i < (Field.Width - (stats.Length - 4)); i++)
                 hws += " ";
-            stats += hws + " |\n";
+            stats += hws + " |\n" + inb;
 
             // combat report
-            hws = String.Empty;
-            for (int i = 0; i < (Field.Width - (Character.CombatReport.Length + 4)); i++)
-                hws += " ";
-            report += "| " + Character.CombatReport + hws + " |";
+            if (Character.CombatReport != null)
+                alreadyAttacked = true;
+            if (Character.Enemy.ReturnStatistics()[Utility.EnemyProperty.Health] < 0)
+                EnemyEncountered = false;
+
+            if (alreadyAttacked) {
+                hws = String.Empty;
+                Character.CombatReport = String.Empty;
+                for (int i = 0; i < (Field.Width - (Character.CombatReport.Length + 4)); i++)
+                    hws += " ";
+                report += "| " + Character.CombatReport + hws + " |\n" + inb;
+            }
 
             // combat options
             options += $"[Use {Character.LeftHand}]   [Run]   [Use {Character.RightHand}]";

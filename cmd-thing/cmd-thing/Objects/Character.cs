@@ -37,18 +37,23 @@ namespace cmd_thing.Objects {
         // combat values
 
         private Item UsedItem;
+        private int strengthDealt;
         private int damageDealt;
         public int DamageDealt { 
             get { return damageDealt; }
-            set { 
-                damageDealt = new Random().Next(UsedItem.ReturnStatistics()[ItemProperty.WepDamage + 1]) * UsedItem.ReturnStatistics()[ItemProperty.WepRolls]; 
+            set {
+                strengthDealt = new Random().Next(strength);
+                damageDealt = new Random().Next(UsedItem.ReturnStatistics()[ItemProperty.WepDamage] + 1) * UsedItem.ReturnStatistics()[ItemProperty.WepRolls] + strengthDealt; 
             }
         }
         private int damageRecieved;
         public int DamageRecieved {
             get { return damageRecieved; }
             set {
-                damageRecieved = new Random().Next(Enemy.ReturnStatistics()[EnemyProperty.Damage + 1]) * Enemy.ReturnStatistics()[EnemyProperty.DamageRolls];
+                if (Enemy.ReturnStatistics()[EnemyProperty.Health] > 0)
+                    damageRecieved = new Random().Next(Enemy.ReturnStatistics()[EnemyProperty.Damage] + 1) * Enemy.ReturnStatistics()[EnemyProperty.DamageRolls];
+                else
+                    damageRecieved = 0;
             }
         }
         private int dealtBlocked;
@@ -56,7 +61,7 @@ namespace cmd_thing.Objects {
             get { return dealtBlocked; }
             set {
                 if (new Random().Next(100) > Enemy.ReturnStatistics()[EnemyProperty.BlockPerc])
-                    dealtBlocked = new Random().Next(Enemy.ReturnStatistics()[EnemyProperty.DamageRed + 1]);
+                    dealtBlocked = new Random().Next(Enemy.ReturnStatistics()[EnemyProperty.DamageRed] + 1);
                 if (damageDealt - dealtBlocked > 0)
                     dealtBlocked = damageDealt;
             }
@@ -66,12 +71,12 @@ namespace cmd_thing.Objects {
             get { return recievedBlocked; }
             set {
                 if (new Random().Next(100) > Armor.ReturnStatistics()[ItemProperty.ArmBlockPerc])
-                    recievedBlocked = new Random().Next(Armor.ReturnStatistics()[ItemProperty.ArmDamageRed + 1]);
+                    recievedBlocked = new Random().Next(Armor.ReturnStatistics()[ItemProperty.ArmDamageRed] + 1);
                 // left hand blocks
                 // this would make you better always use the left hand when attacking with dual weapons but oh well
                 if(UsedItem == LeftHand)
                     if (new Random().Next(100) > UsedItem.ReturnStatistics()[ItemProperty.ArmBlockPerc])
-                        recievedBlocked += new Random().Next(UsedItem.ReturnStatistics()[ItemProperty.ArmDamageRed + 1]);
+                        recievedBlocked += new Random().Next(UsedItem.ReturnStatistics()[ItemProperty.ArmDamageRed] + 1);
                 if (damageRecieved - recievedBlocked > 0)
                     recievedBlocked = damageRecieved;
             }
@@ -81,7 +86,23 @@ namespace cmd_thing.Objects {
         public String CombatReport {
             get { return combatReport; }
             set {
-
+                String output = String.Empty;
+                if (damageDealt == dealtBlocked)
+                    output += $"The {Enemy} dodged your attack, no damage was dealt";
+                else
+                    output += $"Your attack hit! You hit the {Enemy} for {damageDealt} ({strengthDealt} was from strength).";
+                if (damageDealt > dealtBlocked && dealtBlocked != damageDealt)
+                    output += $"\nHowever, the attack was partially blocked. {damageDealt - dealtBlocked} damage was dealt to the {Enemy}";
+                if (Enemy.ReturnStatistics()[EnemyProperty.Health] == 0)
+                    output += $"\nThe {Enemy} has died, you have won.";
+                else {
+                    output += $"\nThe {Enemy} counterattacks, ";
+                    if (damageRecieved == recievedBlocked)
+                        output += "however, you dodged the attack. 0 damage was dealt.";
+                    else
+                        output += $"The attack hit! You were hit for {damageRecieved} damage. Luckily, because of your {Armor}, only {damageRecieved - recievedBlocked} landed.";
+                }
+                combatReport = output;
             }
         }
 
@@ -183,6 +204,7 @@ namespace cmd_thing.Objects {
             Health = 20;
             LeftHand = Item.BareHands;
             RightHand = Item.BareHands;
+            Armor = Item.BirthdaySuit;
         }
 
         // item actions
@@ -238,11 +260,34 @@ namespace cmd_thing.Objects {
             UsedItem = RightHand;
             Attack();
         }
+        public void NoAttack() {
+            DamageRecieved = 0;
+            RecievedBlocked = 0;
+
+            // text
+            String output = String.Empty;
+            output += $"\nThe {Enemy} attacks you while fleeing";
+            if (damageRecieved == recievedBlocked)
+                output += ", however, you dodged the attack. 0 damage was dealt.";
+            else
+                output += $". The attack hit!\nYou were hit for {damageRecieved} damage. Luckily, because of your {Armor}, only {damageRecieved - recievedBlocked} landed.";
+            combatReport = output;
+        }
         private void Attack() {
             DamageDealt = 0;
             DamageRecieved = 0;
             RecievedBlocked = 0;
             dealtBlocked = 0;
+        }
+        public bool Flee() {
+            int chance = new Random().Next(50 + strength);
+            if (chance > new Random().Next(100))
+                return true;
+            else
+                return false;
+        }
+        public void ResetEncounter() {
+            combatReport = String.Empty;
         }
     }
 }

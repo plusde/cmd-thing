@@ -5,6 +5,7 @@ using System.Text;
 namespace cmd_thing.Utility {
     public enum Item {
         BareHands,
+        BirthdaySuit,
         Sword,
         HealthPotion,
         LeatherArmor,
