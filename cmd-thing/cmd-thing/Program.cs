@@ -110,6 +110,7 @@ namespace cmd_thing
                         }
                     } else if (i.FightOngoing) {
                         int bracketCtr = 0;
+                        int charCounter = 0;
                         int armHealthCounter = 0;
                         Console.ForegroundColor = ConsoleColor.DarkGray;
                         foreach (char c in i.DrawFight()) {
@@ -117,14 +118,14 @@ namespace cmd_thing
                                 healthArmorText = true;
                             else
                                 healthArmorText = false;
-                            if (drawingHealth && c == '*') {
+                            if (!drawingArmor && c == '*') {
                                 if (armHealthCounter < i.CharHealth()) {
                                     Console.ForegroundColor = ConsoleColor.Red;
                                     Console.Write(c);
                                     Console.ForegroundColor = ConsoleColor.DarkGray;
                                 } else
                                     Console.Write(c);
-                                if (++armHealthCounter == i.CharMaxHealth()) {
+                                if (++armHealthCounter == i.CharMaxHealth() && drawingHealth) {
                                     drawingHealth = false;
                                     drawingArmor = true;
                                     armHealthCounter = 0;
@@ -138,12 +139,16 @@ namespace cmd_thing
                             } else if (c == '\n') {
                                 Console.ForegroundColor = ConsoleColor.Gray;
                                 drawingArmor = false;
+                                charCounter = 0;
+                                Console.Write(c);
+                            } else if (++charCounter == 3 && c=='H') {
+                                Console.ForegroundColor = ConsoleColor.DarkGray;
                                 Console.Write(c);
                             } else if (c == '|' || c == '-') {
                                 Console.ForegroundColor = ConsoleColor.DarkGray;
                                 Console.Write(c);
                                 Console.ForegroundColor = ConsoleColor.Gray;
-                            } else if(c == '[') {
+                            } else if (c == '[') {
                                 if (++bracketCtr == i.SelectedEncounterButton()) {
                                     Console.BackgroundColor = ConsoleColor.Gray;
                                     Console.ForegroundColor = ConsoleColor.Black;

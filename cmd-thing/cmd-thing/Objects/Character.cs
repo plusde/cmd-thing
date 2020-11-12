@@ -100,8 +100,11 @@ namespace cmd_thing.Objects {
                     if (damageRecieved == recievedBlocked)
                         output += "however, you dodged the attack. 0 damage was dealt.";
                     else
-                        output += $"The attack hit! You were hit for {damageRecieved} damage. Luckily, because of your {Armor}, only {damageRecieved - recievedBlocked} landed.";
+                        output += $"The attack hit! You were hit for {damageRecieved} damage. \nLuckily, because of your {Armor}, only {damageRecieved - recievedBlocked} landed.";
                 }
+
+                
+
                 combatReport = output;
             }
         }

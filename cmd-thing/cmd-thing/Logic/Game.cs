@@ -124,13 +124,15 @@ namespace cmd_thing.Logic {
 
             // combat stats
             stats += $"| {Character.EnemyOutput}";
-            for (int i = 0; i < (Field.Width - (stats.Length - 4)); i++)
+            for (int i = 0; i < (Field.Width - (stats.Length + 2)); i++)
                 hws += " ";
             stats += hws + " |\n" + inb;
 
             // combat report
-            if (Character.CombatReport != null)
+            if (Character.CombatReport != String.Empty)
                 alreadyAttacked = true;
+            else
+                alreadyAttacked = false;
             if (Character.Enemy.ReturnStatistics()[Utility.EnemyProperty.Health] < 0)
                 EnemyEncountered = false;
 
