@@ -24,6 +24,9 @@ namespace cmd_thing.Logic {
         }
         public bool DisplayInventory { get; set; }
         public bool StartGame { get; set; }
+        public bool FightOngoing {
+            get { return g.EnemyEncountered; }
+        }
 
         // create game
         public InputHandler() {
@@ -70,6 +73,10 @@ namespace cmd_thing.Logic {
         // draw menu
         public String DrawMenu() {
             return g.DrawMenu();
+        }
+        // draw fight
+        public String DrawFight() {
+            return g.DrawEnemyEncounter();
         }
 
         /* stuff that belongs here even less */

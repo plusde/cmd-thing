@@ -108,7 +108,9 @@ namespace cmd_thing
                                 Console.Write(c);
                             }
                         }
-                    } else {
+                    } else if (i.FightOngoing) {
+
+                    } else{
                         int armHealthCounter = 0;
                         foreach (char c in i.DrawField()) {
                             if (drawingHealth && c == '*') {
