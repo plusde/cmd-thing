@@ -160,66 +160,7 @@ namespace cmd_thing.Logic {
                 ck = Console.ReadKey(true);
                 recievedInput = false;
 
-                if (FightOngoing) {
-                    // select ass
-                    if (ck.Key == ConsoleKey.LeftArrow || ck.Key == ConsoleKey.RightArrow) {
-                        switch (ck.Key) {
-                            case ConsoleKey.LeftArrow:
-                                enemyEncounter.SelectedButton--;
-                                break;
-                            case ConsoleKey.RightArrow:
-                                enemyEncounter.SelectedButton++;
-                                break;
-                        }
-                        recievedInput = true;
-                    }
-                    // do action on selected ass
-                    if(ck.Key == ConsoleKey.Enter) {
-                        switch (enemyEncounter.SelectedButton) {
-                            case 1:
-                                g.Character.LeftAttack();
-                                break;
-                            case 2:
-                                if (!g.Character.Flee())
-                                    g.Character.NoAttack();
-                                else {
-                                    g.EnemyEncountered = false;
-                                    g.Character.ResetEncounter();
-                                }
-                                break;
-                            case 3:
-                                g.Character.RightAttack();
-                                break;
-                        }
-                        recievedInput = true;
-                    }
-                } else if (!DisplayInventory) {
-                    // move
-                    if (ck.Key == ConsoleKey.UpArrow || ck.Key == ConsoleKey.DownArrow || ck.Key == ConsoleKey.LeftArrow || ck.Key == ConsoleKey.RightArrow) {
-                        g.MoveChar(ck.Key);
-                        g.DrawChar();
-                        recievedInput = true;
-                    }
-                    // interact
-                    if (ck.Key == ConsoleKey.E) {
-                        // break crate
-                        g.Interaction();
-                        g.DrawChar();
-                        recievedInput = true;
-                    }
-                    // open inventory
-                    if (ck.Key == ConsoleKey.I) {
-                        DisplayInventory = true;
-                        recievedInput = true;
-                        g.Character.UniqueItemCount = 0;
-                        inventory = new UI(2, g.Character.UniqueItemCount);
-                    }
-                    // exit the loop
-                    if (ck.Key == ConsoleKey.Escape) {
-                        recievedInput = true;
-                        return true;
-                    }
-                } else {
+                if (DisplayInventory) {
                     // select ass
                     if (ck.Key == ConsoleKey.UpArrow || ck.Key == ConsoleKey.DownArrow || ck.Key == ConsoleKey.LeftArrow || ck.Key == ConsoleKey.RightArrow) {
                         switch (ck.Key) {
@@ -285,6 +226,80 @@ namespace cmd_thing.Logic {
                     if (ck.Key == ConsoleKey.I || ck.Key == ConsoleKey.Escape) {
                         DisplayInventory = false;
                         recievedInput = true;
+                    }
+                } else if (FightOngoing) {
+                    // select ass
+                    if (ck.Key == ConsoleKey.LeftArrow || ck.Key == ConsoleKey.RightArrow) {
+                        switch (ck.Key) {
+                            case ConsoleKey.LeftArrow:
+                                enemyEncounter.SelectedButton--;
+                                break;
+                            case ConsoleKey.RightArrow:
+                                enemyEncounter.SelectedButton++;
+                                break;
+                        }
+                        recievedInput = true;
+                    }
+                    // do action on selected ass
+                    if(ck.Key == ConsoleKey.Enter) {
+                        switch (enemyEncounter.SelectedButton) {
+                            case 1:
+                                g.Character.LeftAttack();
+                                g.Character.CombatReport = String.Empty;
+                                break;
+                            case 2:
+                                if (!g.Character.Flee())
+                                    g.Character.NoAttack();
+                                else {
+                                    g.EnemyEncountered = false;
+                                    g.Character.ResetEncounter();
+                                }
+                                break;
+                            case 3:
+                                g.Character.RightAttack();
+                                g.Character.CombatReport = String.Empty;
+                                break;
+                        }
+                        g.AlreadyAttacked = true;
+                        recievedInput = true;
+                    }
+                    // open inventory
+                    if (ck.Key == ConsoleKey.I) {
+                        DisplayInventory = true;
+                        recievedInput = true;
+                        g.Character.UniqueItemCount = 0;
+                        inventory = new UI(2, g.Character.UniqueItemCount);
+                    }
+                    // exit the loop
+                    if (ck.Key == ConsoleKey.Escape) {
+                        recievedInput = true;
+                        return true;
+                    }
+                } else {
+                    // move
+                    if (ck.Key == ConsoleKey.UpArrow || ck.Key == ConsoleKey.DownArrow || ck.Key == ConsoleKey.LeftArrow || ck.Key == ConsoleKey.RightArrow) {
+                        g.MoveChar(ck.Key);
+                        g.DrawChar();
+                        recievedInput = true;
+                    }
+                    // interact
+                    if (ck.Key == ConsoleKey.E) {
+                        // break crate
+                        g.Interaction();
+                        g.DrawChar();
+                        recievedInput = true;
+                    }
+                    // open inventory
+                    if (ck.Key == ConsoleKey.I) {
+                        DisplayInventory = true;
+                        recievedInput = true;
+                        g.Character.UniqueItemCount = 0;
+                        inventory = new UI(2, g.Character.UniqueItemCount);
+                    }
+                    // exit the loop
+                    if (ck.Key == ConsoleKey.Escape) {
+                        recievedInput = true;
+                        return true;
                     }
                 }
             }

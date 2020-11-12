@@ -10,6 +10,7 @@ namespace cmd_thing.Logic {
         public Field Field { get; set; }
         public Character Character { get; set; }
         public bool EnemyEncountered { get; set; }
+        public bool AlreadyAttacked { get; set; }
         private bool alreadyAttacked;
 
         // put char in field
@@ -75,6 +76,7 @@ namespace cmd_thing.Logic {
                             Character.EncounterEnemy0();
                             alreadyAttacked = false;
                             EnemyEncountered = true;
+                            Character.CombatReport = String.Empty;
                             break;
                         // nothing nearby to interact with
                         default:
@@ -129,16 +131,17 @@ namespace cmd_thing.Logic {
             stats += hws + " |\n" + inb;
 
             // combat report
-            if (Character.CombatReport != String.Empty)
+            if (Character.CombatReport != String.Empty && AlreadyAttacked)
                 alreadyAttacked = true;
-            else
+            else {
                 alreadyAttacked = false;
+            }
             if (Character.Enemy.ReturnStatistics()[Utility.EnemyProperty.Health] < 0)
                 EnemyEncountered = false;
 
             if (alreadyAttacked) {
+                int linecounter = 0;
                 hws = String.Empty;
-                Character.CombatReport = String.Empty;
                 for (int i = 0; i < (Field.Width - (Character.CombatReport.Length + 4)); i++)
                     hws += " ";
                 report += "| " + Character.CombatReport + hws + " |\n" + inb;
